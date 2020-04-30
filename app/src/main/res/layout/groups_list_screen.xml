@@ -4,28 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".GroupsActivity"
     android:orientation="vertical"
-    android:padding="25dp"
+    android:padding="15dp"
     android:weightSum="16">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/groupsListDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_weight="4"
+        android:text="Это ваши группы. Вы можете перейти к греппе, если нажмете на нее"
         tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="79dp"
-        android:layout_weight="4"/>
+        tools:layout_editor_absoluteY="79dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_weight="1"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupsListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="LinearLayoutManager"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="99dp"
         android:layout_weight="8"/>
@@ -37,46 +35,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="15dp"
         android:layout_weight="1"
         android:orientation="horizontal"
+        android:weightSum="8"
         tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="722dp"
-        android:weightSum="8">
+        tools:layout_editor_absoluteY="722dp">
 
-        <Button
-            android:id="@+id/button3"
+        <ProgressBar
+            android:id="@+id/groupsListProgressBar"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="2"
-            android:background="@drawable/rounded_button"
-            android:text="Закрытые"
-            android:weightSum="16"/>
+            android:layout_height="36dp"
+            android:theme="@style/CircularProgress"/>
 
         <Space
-            android:layout_width="20dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/groupsListAddButton"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@drawable/rounded_button"
-            android:text="Статистика"/>
-
-        <Space
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="2"
-            android:background="@drawable/rounded_button"
-            android:text="Добавить"/>
+            android:drawableLeft="@drawable/ic_add_circle_black_24dp"
+            android:text="@string/add"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:onClick="addItem"/>
     </LinearLayout>
 </LinearLayout>

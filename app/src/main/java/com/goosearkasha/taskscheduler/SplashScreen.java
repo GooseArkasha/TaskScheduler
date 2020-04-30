@@ -3,16 +3,21 @@ package com.goosearkasha.taskscheduler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.database.sqlite.SQLiteDatabase;
+
 
 public class SplashScreen extends AppCompatActivity {
-    private final static String TAG = "SplashScreen";
+    private final static String TAG = "SplashScreenTag";
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        dbHelper = new DBHelper(this);
     }
 
     @Override
@@ -29,7 +34,26 @@ public class SplashScreen extends AppCompatActivity {
                     Log.d(TAG, "Sleep Eror");
                 }
 
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                SQLiteDatabase database = dbHelper.getWritableDatabase();
+                Cursor cursor = database.query(DBHelper.TABLE_GROUPS, null, null, null, null, null, null);
+
+                if(cursor.moveToFirst()) {
+                    int idIndex = cursor.getColumnIndex(DBHelper.COLUMN_ID);
+                    int titleIndex = cursor.getColumnIndex(DBHelper.COLUMN_TITLE);
+                    int description = cursor.getColumnIndex(DBHelper.COLUMN_DESCRIPTION);
+
+                    do {
+                        Log.d(TAG, "ID = " + cursor.getInt(idIndex) +
+                                ", title = " + cursor.getString(titleIndex) +
+                                ", description = " + cursor.getString(description));
+                    }while (cursor.moveToNext());
+                } else
+                    Log.d(TAG, "0 rows");
+
+                cursor.close();
+                dbHelper.close();
+
+                Intent intent = new Intent(SplashScreen.this, GroupsActivity.class);
                 startActivity(intent);
                 finish();
             }
