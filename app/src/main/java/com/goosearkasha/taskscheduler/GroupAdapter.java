@@ -21,6 +21,7 @@ class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
+
     @Override
     public GroupAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

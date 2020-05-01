@@ -15,7 +15,7 @@
             android:name=".GroupsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

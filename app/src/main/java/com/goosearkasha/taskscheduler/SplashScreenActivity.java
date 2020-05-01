@@ -9,14 +9,14 @@ import android.util.Log;
 import android.database.sqlite.SQLiteDatabase;
 
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
     private final static String TAG = "SplashScreenTag";
     DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen);
+        setContentView(R.layout.splash_screen_activity);
         dbHelper = new DBHelper(this);
     }
 
@@ -53,7 +53,7 @@ public class SplashScreen extends AppCompatActivity {
                 cursor.close();
                 dbHelper.close();
 
-                Intent intent = new Intent(SplashScreen.this, GroupsActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, GroupsActivity.class);
                 startActivity(intent);
                 finish();
             }

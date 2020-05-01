@@ -39,7 +39,7 @@ public class GroupsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.groups_list_screen);
+        setContentView(R.layout.groups_activity);
 
         description = (TextView) findViewById(R.id.groupsListDescription);
         pbDownload = (ProgressBar) findViewById(R.id.groupsListProgressBar);
