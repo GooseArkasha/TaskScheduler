@@ -55,7 +55,7 @@ class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> {
                     Group group = groups.get(positionIndex);
 
                     Log.d("groupItem", "element nom " + positionIndex);
-                    Intent intent = new Intent(context, GroupAndGoalActivity.class);
+                    Intent intent = new Intent(context, GroupActivity.class);
                     intent.putExtra(Group.class.getSimpleName(), group);
                     context.startActivity(intent);
                 }

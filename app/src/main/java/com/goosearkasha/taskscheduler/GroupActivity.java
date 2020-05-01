@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-public class GroupAndGoalActivity extends AppCompatActivity {
+public class GroupActivity extends AppCompatActivity {
 
     Group group;
     final String TAG = "GroupAndGoalActivityLog";
 
-    TextView description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.group_and_goal_page);
 
-        description = (TextView) findViewById(R.id.group_and_goal_description);
+        TextView description = (TextView) findViewById(R.id.group_and_goal_description);
 
         Bundle arguments = getIntent().getExtras();
 
@@ -30,6 +30,5 @@ public class GroupAndGoalActivity extends AppCompatActivity {
 
             description.setText(string);
         }
-        setContentView(R.layout.group_and_goal_page);
     }
 }
