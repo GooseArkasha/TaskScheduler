@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Task Scheduler</string>
+
     <string name="add">Добавить</string>
+    <string name="save">Сохранить</string>
+    <string name="back">Назад</string>
     <string name="statistics">Статистика</string>
     <string name="closed">Закрытые</string>
+
+    <string name="groups_activity_description">В списке находятся доступные Вам группы.
+        Вы можете посмотреть каждую группу подробнее, если кликните на нее.</string>
+    <string name="add_or_change_group_description">Тут вы можете создать Вашу новую группу,
+        в которую потом можно добавить цели.</string>
+
+    <string name="enter_title">Введите название группы</string>
+    <string name="enter_description">Введите описание группы</string>
 </resources>

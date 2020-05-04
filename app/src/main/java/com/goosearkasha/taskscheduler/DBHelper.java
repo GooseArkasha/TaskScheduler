@@ -48,7 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT default 'Назовите свою цель', " +
                 COLUMN_DESCRIPTION + " TEXT default 'Тут может быть ваше описание', " +
-                COLUMN_DEADLINE + " TEXT, " +
+                COLUMN_DEADLINE + " TEXT, " +   //"ДД-ММ-ГГГГ"
                 COLUMN_GROUP_ID + " INTEGER default 1, " +
                 COLUMN_IS_OPEN + " INTEGER default 1 " + //1 - открыта, 0 - закрыта
                 ");");

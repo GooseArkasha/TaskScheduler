@@ -6,63 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".GroupsActivity"
     android:orientation="vertical"
-    android:padding="15dp"
-    android:weightSum="16">
+    >
 
     <TextView
         android:id="@+id/groupsListDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
-        android:text="Это ваши группы. Вы можете перейти к греппе, если нажмете на нее"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="79dp" />
+        android:text="@string/groups_activity_description"
+        style="@style/MyDescriptionStyle"
+        android:layout_weight="2"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupsListRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="262dp"
         app:layoutManager="LinearLayoutManager"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="99dp"
-        android:layout_weight="8"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_weight="1"/>
+        android:layout_weight="15"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="15dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="8"
-        tools:layout_editor_absoluteX="215dp"
-        tools:layout_editor_absoluteY="722dp">
-
-        <ProgressBar
-            android:id="@+id/groupsListProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:theme="@style/CircularProgress"/>
+        android:orientation="horizontal">
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></Space>
 
         <Button
             android:id="@+id/groupsListAddButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
+            style="@style/MyButtonTextStyle"
+            android:layout_width="145dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_button"
-            android:drawableLeft="@drawable/ic_add_circle_black_24dp"
+            android:onClick="addItem"
             android:text="@string/add"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp"
-            android:onClick="addItem"/>
+            android:textColor="#FFFFFF" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></Space>
+
     </LinearLayout>
+
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.goosearkasha.taskscheduler;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +22,7 @@ import java.util.List;
 public class GroupsActivity extends AppCompatActivity {
     final String TAG = "GroupsActivityLog";
 
-    private boolean threadStarted;
+    private boolean alreadyStarted;
 
     final int STATUS_START = 0; // загрузка данных начата
     final int STATUS_FINISH = 1; // загрузка завершена
@@ -30,11 +31,11 @@ public class GroupsActivity extends AppCompatActivity {
 
     Handler h;
     TextView description;
-    ProgressBar pbDownload;
     Button btnAdd;
     RecyclerView recyclerView;
 
     DBHelper dbHelper;
+    ActionBar actionbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,27 +43,29 @@ public class GroupsActivity extends AppCompatActivity {
         setContentView(R.layout.groups_activity);
 
         description = (TextView) findViewById(R.id.groupsListDescription);
-        pbDownload = (ProgressBar) findViewById(R.id.groupsListProgressBar);
         btnAdd = (Button) findViewById(R.id.groupsListAddButton);
         recyclerView = (RecyclerView) findViewById(R.id.groupsListRecyclerView);
         dbHelper = new DBHelper(this);
 
-        if(!threadStarted) {
+        actionbar = getSupportActionBar();
+        actionbar.setTitle("Ваши группы");
+
+
+        if(!alreadyStarted) {
             h = new Handler() {
                 public void handleMessage(android.os.Message msg) {
                     switch (msg.what) {
                         case STATUS_START:
                             btnAdd.setEnabled(false);
-                            description.setVisibility(View.GONE);
+                            description.setText("Идет загрузка данных");
                             recyclerView.setVisibility(View.GONE);
-                            pbDownload.setVisibility(View.VISIBLE);
                             Log.d(TAG, "status = " + STATUS_START);
                             break;
                         case STATUS_FINISH:
                             btnAdd.setEnabled(true);
-                            description.setVisibility(View.VISIBLE);
+                            description.setText("Это ваши группы." +
+                                            "Вы можете перейти к греппе, если нажмете на нее");
                             recyclerView.setVisibility(View.VISIBLE);
-                            pbDownload.setVisibility(View.GONE);
                             Log.d(TAG, "status = " + STATUS_FINISH);
 
                             GroupAdapter groupAdapter = new GroupAdapter(GroupsActivity.this, groups);
@@ -78,9 +81,9 @@ public class GroupsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Log.d(TAG, "threadStarted = " + threadStarted);
+        Log.d(TAG, "threadStarted = " + alreadyStarted);
 
-        if(!threadStarted) {
+        if(!alreadyStarted) {
             Thread thread = new Thread(new Runnable() { //Создаем новый поток
                 @Override
                 public void run() { //Переопределяем метод, который вызывается при запуске потока
@@ -110,6 +113,7 @@ public class GroupsActivity extends AppCompatActivity {
                     cursor.close();
                     dbHelper.close();
                     h.sendEmptyMessage(STATUS_FINISH);
+                    alreadyStarted = true;
                 }
             });
             thread.start();
@@ -125,13 +129,12 @@ public class GroupsActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        threadStarted = true;
-        outState.putBoolean("threadStarted", threadStarted);
+        outState.putBoolean("threadStarted", true);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        threadStarted = savedInstanceState.getBoolean("threadStarted");
+        alreadyStarted = savedInstanceState.getBoolean("threadStarted");
     }
 }

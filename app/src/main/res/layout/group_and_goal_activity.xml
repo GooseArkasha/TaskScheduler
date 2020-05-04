@@ -17,18 +17,13 @@
         tools:layout_editor_absoluteX="163dp"
         tools:layout_editor_absoluteY="79dp" />
 
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:theme="@style/CircularProgress"></ProgressBar>
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView1"
+        android:id="@+id/goals_and_tasks_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="99dp"
+        app:layoutManager="LinearLayoutManager"
         android:layout_weight="8"/>
 
     <Space
@@ -78,7 +73,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"

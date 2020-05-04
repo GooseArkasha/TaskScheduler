@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
-    private final static String TAG = "SplashScreenTag";
+    private final static String TAG = "SplashScreen";
     DBHelper dbHelper;
 
     @Override
@@ -29,29 +29,10 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() { //Переопределяем метод, который вызывается при запуске потока
                 try {
                     Log.d(TAG, "SLEEEEEEEEP");
-                    Thread.sleep(2000); //Останавливаем работу потока на 2 с.
+                    Thread.sleep(1500); //Останавливаем работу потока на 2 с.
                 } catch (Exception e) {
                     Log.d(TAG, "Sleep Eror");
                 }
-
-                SQLiteDatabase database = dbHelper.getWritableDatabase();
-                Cursor cursor = database.query(DBHelper.TABLE_GROUPS, null, null, null, null, null, null);
-
-                if(cursor.moveToFirst()) {
-                    int idIndex = cursor.getColumnIndex(DBHelper.COLUMN_ID);
-                    int titleIndex = cursor.getColumnIndex(DBHelper.COLUMN_TITLE);
-                    int description = cursor.getColumnIndex(DBHelper.COLUMN_DESCRIPTION);
-
-                    do {
-                        Log.d(TAG, "ID = " + cursor.getInt(idIndex) +
-                                ", title = " + cursor.getString(titleIndex) +
-                                ", description = " + cursor.getString(description));
-                    }while (cursor.moveToNext());
-                } else
-                    Log.d(TAG, "0 rows");
-
-                cursor.close();
-                dbHelper.close();
 
                 Intent intent = new Intent(SplashScreenActivity.this, GroupsActivity.class);
                 startActivity(intent);
