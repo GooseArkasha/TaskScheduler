@@ -1,8 +1,10 @@
 package com.goosearkasha.taskscheduler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -68,8 +70,6 @@ public class GroupActivity extends AppCompatActivity {
                             recyclerView.setVisibility(View.VISIBLE);
                             Log.d(TAG, "status = " + STATUS_FINISH);
 
-                            goals.add(new Goal(0, "QQ", "QQ", "01-01-2018", 0, 0));
-                            goals.add(new Goal(0, "QQ", "QQ", "01-01-2018", 0, 0));
                             Log.d(TAG, "size = " + goals.size());
 
                             GoalAdapter goalAdapter = new GoalAdapter(GroupActivity.this, goals);
@@ -92,8 +92,8 @@ public class GroupActivity extends AppCompatActivity {
                     h.sendEmptyMessage(STATUS_START);
 
                     SQLiteDatabase database = dbHelper.getWritableDatabase();
-                    String selection = DBHelper.COLUMN_IS_OPEN + " = 1";
-                    Cursor cursor = database.query(DBHelper.TABLE_GOALS, null, selection, null, null, null, null);
+                    Cursor cursor = database.query(DBHelper.TABLE_GOALS, null, null, null, null, null, null);
+                    Log.d(TAG, "getcount = " + cursor.getCount());
 
                     if(cursor.moveToFirst()) {
                         int idIndex = cursor.getColumnIndex(DBHelper.COLUMN_ID);
@@ -129,5 +129,24 @@ public class GroupActivity extends AppCompatActivity {
             thread.start();
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("threadStarted", true);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        alreadyStarted = savedInstanceState.getBoolean("threadStarted");
+    }
+
+    public  void addItem(View view) {
+        Intent intent = new Intent(this, AddOrChangeGoalActivity.class);
+        intent.putExtra(Group.class.getSimpleName(), group);
+        startActivity(intent);
+        finish();
     }
 }

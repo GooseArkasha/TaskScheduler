@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/description1"
-        android:hint="@string/enter_title"
+        android:hint="@string/enter_group_title"
         style="@style/MyTextStyle"/>
 
     <EditText
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:hint="@string/enter_description"
+        android:hint="@string/enter_group_description"
         style="@style/MyTextStyle"/>
 
     <LinearLayout

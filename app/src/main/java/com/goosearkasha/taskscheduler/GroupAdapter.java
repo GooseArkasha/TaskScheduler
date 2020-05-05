@@ -41,7 +41,7 @@ class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> {
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         final TextView titleView;
 

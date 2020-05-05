@@ -9,9 +9,15 @@
 
     <string name="groups_activity_description">В списке находятся доступные Вам группы.
         Вы можете посмотреть каждую группу подробнее, если кликните на нее.</string>
+
     <string name="add_or_change_group_description">Тут вы можете создать Вашу новую группу,
         в которую потом можно добавить цели.</string>
+    <string name="enter_group_title">Введите название группы</string>
+    <string name="enter_group_description">Введите описание группы</string>
 
-    <string name="enter_title">Введите название группы</string>
-    <string name="enter_description">Введите описание группы</string>
+    <string name="add_or_change_goal_description">Тут вы можете создать Вашу новую цель,
+        в которую потом можно добавить задачи.</string>
+
+    <string name="enter_goal_title">Введите название цели</string>
+    <string name="enter_goal_description">Введите описание цели</string>
 </resources>

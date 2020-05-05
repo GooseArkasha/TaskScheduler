@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
         android:id="@+id/description1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Создайте цель:"/>
+        android:text="@string/add_or_change_goal_description"
+        style="@style/MyDescriptionStyle"/>
 
 
     <EditText
@@ -14,48 +15,69 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/description1"
-        android:hint="Введите название" />
+        android:hint="@string/enter_goal_title"
+        style="@style/MyTextStyle"/>
 
     <EditText
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:hint="Введите описание" />
+        android:hint="@string/enter_goal_description"
+        style="@style/MyTextStyle"/>
 
-    <EditText
-        android:id="@+id/deadline"
+    <TextView
+        android:id="@+id/GroupID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textColor = "#000000"
+        android:fontFamily = "sans-serif-condensed"
+        android:textSize="18sp"
         android:layout_below="@+id/description"
-        android:hint="Введите срок закрытия цели" />
+        android:text="ID группы"/>
 
-    <EditText
-        android:id="@+id/groupId"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/deadline"
-        android:hint="Введите номер группы" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="20dp">
 
-    <EditText
-        android:id="@+id/isOpen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/groupId"
-        android:hint="Введите открыта ли цель" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Сохранить"
-        android:onClick="saveGroup"/>
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/MyButtonTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:onClick="saveGoal"
+            android:text="@string/save" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Назад"
-        android:onClick="back"/>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:onClick="back"
+            android:text="@string/back"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            style="@style/MyButtonTextStyle"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</RelativeLayout>
