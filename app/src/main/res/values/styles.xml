@@ -27,7 +27,7 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textSize">18sp</item>
         <item name="android:background">#A9A9A9</item>
-        <item name="android:padding">20dp</item>
+        <item name="android:padding">10dp</item>
     </style>
 
     <style name="MyTextStyle" parent="@android:style/TextAppearance.Medium">

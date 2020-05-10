@@ -1,5 +1,6 @@
 package com.goosearkasha.taskscheduler;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -14,11 +15,14 @@ import android.util.Log;
 public class AddOrChangeGroupActivity extends AppCompatActivity {
 
     final String TAG = "AddOrChangeActivity";
+    Group group;
+    String mode = "Добавление группы";
 
     Button saveButton;
     Button backButton;
     EditText title;
     EditText description;
+    ActionBar actionbar;
 
     DBHelper dbHelper;
 
@@ -32,6 +36,18 @@ public class AddOrChangeGroupActivity extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.backButton);
 
         dbHelper = new DBHelper(this);
+
+        Bundle arguments = getIntent().getExtras();
+
+        if(arguments!=null){
+            group = (Group) arguments.getSerializable(Group.class.getSimpleName());
+            mode = arguments.getString("mode");
+            title.setText(group.getTitle());
+            description.setText(group.getDescription());
+        }
+
+        actionbar = getSupportActionBar();
+        actionbar.setTitle(mode);
     }
 
     public void saveGroup(View view) {
@@ -48,7 +64,13 @@ public class AddOrChangeGroupActivity extends AppCompatActivity {
         ContentValues newValues = new ContentValues();
         newValues.put(DBHelper.COLUMN_TITLE, t);
         newValues.put(DBHelper.COLUMN_DESCRIPTION, d);
-        db.insert(DBHelper.TABLE_GROUPS, null, newValues);
+
+        if(mode == "Добавление группы") {
+            db.insert(DBHelper.TABLE_GROUPS, null, newValues);
+        } else {
+            String where =  DBHelper.COLUMN_ID + " = " + group.getID();
+            db.update(DBHelper.TABLE_GROUPS, newValues, where, null);
+        }
         dbHelper.close();
 
         Intent intent = new Intent(this, GroupsActivity.class);

@@ -1,5 +1,6 @@
 package com.goosearkasha.taskscheduler;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -17,15 +18,22 @@ public class AddOrChangeGoalActivity extends AppCompatActivity {
 
     final String TAG = "AddOrChangeActivity";
 
+    public static final int ADD_GOAL = 0;
+    public static final int UPDATE_GOAL = 1;
+
+    int mode = ADD_GOAL;
+
     Button saveButton;
     Button backButton;
     EditText title;
     EditText description;
     TextView GroupIDTextView;
+    ActionBar actionbar;
 
     DBHelper dbHelper;
 
-    Group group;
+    Group group ;
+    Goal goal = new Goal();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +47,24 @@ public class AddOrChangeGoalActivity extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.backButton);
 
         Bundle arguments = getIntent().getExtras();
+        actionbar = getSupportActionBar();
 
         if(arguments!=null){
-            group = (Group) arguments.getSerializable(Group.class.getSimpleName());
-            GroupIDTextView.setText("Ваша цель будет прикреплена к группе '" + group.getTitle() + "'");
+            mode = arguments.getInt("mode");
+
+            if(mode == ADD_GOAL) {
+                group = (Group) arguments.getSerializable(Group.class.getSimpleName());
+                GroupIDTextView.setText("Ваша цель прикреплена к группе '" + group.getTitle() + "'");
+                actionbar.setTitle("Добавление цели");
+
+            }
+            if(mode == UPDATE_GOAL){
+                goal = (Goal) arguments.getSerializable(Goal.class.getSimpleName());
+                title.setText(goal.getTitle());
+                description.setText(goal.getDescription());
+                GroupIDTextView.setVisibility(View.GONE);
+                actionbar.setTitle("Изменение цели");
+            }
         }
 
         dbHelper = new DBHelper(this);
@@ -52,25 +74,31 @@ public class AddOrChangeGoalActivity extends AppCompatActivity {
 
         String t = title.getText().toString();
         String d = description.getText().toString();
-        int grid=group.getID();
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         Log.d(TAG, "--- Insert in database: ---");
-        Log.d(TAG, "title = " + t + " description = " + d + " groupID = " + grid);
+        Log.d(TAG, "title = " + t + " description = ");
 
 
         ContentValues newValues = new ContentValues();
         newValues.put(DBHelper.COLUMN_TITLE, t);
         newValues.put(DBHelper.COLUMN_DESCRIPTION, d);
-        newValues.put(DBHelper.COLUMN_GOAL_ID, grid);
-        newValues.put(DBHelper.COLUMN_DEADLINE, "01-01-2020");
-        newValues.put(DBHelper.COLUMN_IS_OPEN, 1);
-        db.insert(DBHelper.TABLE_GOALS, null, newValues);
 
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.query(DBHelper.TABLE_GOALS, null, null, null, null, null, null);
+
+        if(mode == ADD_GOAL) {
+            String grid=Integer.toString(group.getID());
+            newValues.put(DBHelper.COLUMN_GROUP_ID, grid);
+            newValues.put(DBHelper.COLUMN_DEADLINE, "01-01-2020");
+            db.insert(DBHelper.TABLE_GOALS, null, newValues);
+        } else {
+            String where =  DBHelper.COLUMN_ID + " = " + goal.getID();
+            db.update(DBHelper.TABLE_GOALS, newValues, where, null);
+        }
+
+        Cursor cursor = db.query(DBHelper.TABLE_GOALS, null, null, null, null, null, null);
         Log.d(TAG, "getCount = " + cursor.getCount());
+        cursor.close();
         dbHelper.close();
 
         Intent intent = new Intent(this, GroupActivity.class);
@@ -79,7 +107,16 @@ public class AddOrChangeGoalActivity extends AppCompatActivity {
     }
 
     public void back(View view) {
-        Intent intent = new Intent(this, GroupActivity.class);
+
+        Intent intent = new Intent();
+
+        if(mode == ADD_GOAL) {
+            intent = new Intent(this, GroupActivity.class);
+        }
+        if(mode == UPDATE_GOAL) {
+            intent = new Intent(this, GoalActivity.class);
+        }
+
         startActivity(intent);
         finish();
     }

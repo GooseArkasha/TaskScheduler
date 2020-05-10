@@ -54,6 +54,20 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder> {
             super(view);
             Log.d(TAG, "QQ from ViewHolder Constructor");
             goalTitle = (TextView) view.findViewById(R.id.goalTitle);
+
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int positionIndex = getAdapterPosition();
+                    Goal goal = goals.get(positionIndex);
+
+                    Log.d("goalItem", "element nom " + positionIndex);
+                    Intent intent = new Intent(context, GoalActivity.class);
+                    intent.putExtra(Goal.class.getSimpleName(), goal);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

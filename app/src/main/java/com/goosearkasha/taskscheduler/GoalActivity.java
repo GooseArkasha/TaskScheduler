@@ -18,19 +18,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupActivity extends AppCompatActivity {
+public class GoalActivity extends AppCompatActivity {
 
-    static Group group;
-    final String TAG = "GroupActivityLog";
+    static Goal goal;
+    final String TAG = "GoalActivityLog";
     final int STATUS_START = 0; // загрузка данных начата
     final int STATUS_FINISH = 1; // загрузка завершена
 
-    private List<Goal> goals = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
 
     private TextView description;
     private Button backButton;
-    private Button updateGroupButton;
-    private Button removeGroupButton;
+    private Button updateGoalButton;
+    private Button removeGoalButton;
     private Button addButton;
     private RecyclerView recyclerView;
     ActionBar actionbar;
@@ -38,39 +38,39 @@ public class GroupActivity extends AppCompatActivity {
     private Handler h;
     private DBHelper dbHelper;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.group_activity);
+        setContentView(R.layout.goal_activity);
 
-        Log.d(TAG, "QQ fom GroupActivity");
+        Log.d(TAG, "QQ from GoalActivity");
 
-        description = (TextView) findViewById(R.id.group_and_goal_description);
-        recyclerView = (RecyclerView) findViewById(R.id.goals_and_tasks_recyclerView);
+        description = (TextView) findViewById(R.id.goal_description);
+        recyclerView = (RecyclerView) findViewById(R.id.tasks_recyclerView);
 
         addButton = (Button) findViewById(R.id.addButton);
-        addButton.setText(R.string.add_goal);
+        addButton.setText(R.string.add_task);
 
         backButton = (Button) findViewById(R.id.backButton);
         backButton.setText(R.string.back);
 
-        updateGroupButton = (Button) findViewById(R.id.updateGroupButton);
-        updateGroupButton.setText(R.string.update_group);
+        updateGoalButton = (Button) findViewById(R.id.updateGoalButton);
+        updateGoalButton.setText(R.string.update_goal);
 
-        removeGroupButton = (Button) findViewById(R.id.removeGroupButton);
-        removeGroupButton.setText(R.string.remove_group);
+        removeGoalButton = (Button) findViewById(R.id.removeGoalButton);
+        removeGoalButton.setText(R.string.remove_goal);
 
         dbHelper = new DBHelper(this);
 
         Bundle arguments = getIntent().getExtras();
 
         if(arguments!=null){
-            group = (Group) arguments.getSerializable(Group.class.getSimpleName());
+            goal = (Goal) arguments.getSerializable(Goal.class.getSimpleName());
+            Log.d(TAG, "Goal received");
         }
 
         actionbar = getSupportActionBar();
-        actionbar.setTitle("Группа: " + group.getTitle());
+        actionbar.setTitle("Цель: " + goal.getTitle());
 
         h = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -80,23 +80,19 @@ public class GroupActivity extends AppCompatActivity {
                         description.setText("Идет загрузка данных");
                         recyclerView.setVisibility(View.GONE);
                         Log.d(TAG, "status = " + STATUS_START);
-
-                        if(group.getID() == 1) {
-                            removeGroupButton.setVisibility(View.GONE);
-                        }
                         break;
                     case STATUS_FINISH:
                         addButton.setEnabled(true);
-                        Log.d(TAG, "title: " + group.getTitle() + "description: " + group.getDescription());
+                        Log.d(TAG, "title: " + goal.getTitle() + "description: " + goal.getDescription());
 
-                        description.setText(group.getDescription());
+                        description.setText(goal.getDescription());
                         recyclerView.setVisibility(View.VISIBLE);
                         Log.d(TAG, "status = " + STATUS_FINISH);
 
-                        Log.d(TAG, "size = " + goals.size());
+                        Log.d(TAG, "size = " + tasks.size());
 
-                        GoalAdapter goalAdapter = new GoalAdapter(GroupActivity.this, goals);
-                        recyclerView.setAdapter(goalAdapter);
+                        TaskAdapter taskAdapter = new TaskAdapter(GoalActivity.this, tasks);
+                        recyclerView.setAdapter(taskAdapter);
                         break;
                 }
             }
@@ -107,7 +103,7 @@ public class GroupActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        goals.clear();
+        tasks.clear();
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -116,10 +112,10 @@ public class GroupActivity extends AppCompatActivity {
 
                 SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-                Log.d(TAG, "groupID = " + group.getID());
-                String selection = "group_id = ?";
-                String[] selectionArgs = {Integer.toString(group.getID())};
-                Cursor  cursor = database.query(DBHelper.TABLE_GOALS, null, selection, selectionArgs, null, null, null);
+                Log.d(TAG, "goalID = " + goal.getID());
+                String selection = DBHelper.COLUMN_GOAL_ID + " = ?";
+                String[] selectionArgs = {Integer.toString(goal.getID())};
+                Cursor cursor = database.query(DBHelper.TABLE_TASKS, null, selection, selectionArgs, null, null, null);
                 Log.d(TAG, "getCount = " + cursor.getCount());
 
                 if(cursor.moveToFirst()) {
@@ -127,7 +123,7 @@ public class GroupActivity extends AppCompatActivity {
                     int titleIndex = cursor.getColumnIndex(DBHelper.COLUMN_TITLE);
                     int descriptionIndex = cursor.getColumnIndex(DBHelper.COLUMN_DESCRIPTION);
                     int deadlineIndex = cursor.getColumnIndex(DBHelper.COLUMN_DEADLINE);
-                    int groupIDIndex = cursor.getColumnIndex(DBHelper.COLUMN_GROUP_ID);
+                    int goalIDIndex = cursor.getColumnIndex(DBHelper.COLUMN_GOAL_ID);
                     int isOpenIndex = cursor.getColumnIndex(DBHelper.COLUMN_IS_OPEN);
 
                     do {
@@ -135,13 +131,13 @@ public class GroupActivity extends AppCompatActivity {
                                 ", title = " + cursor.getString(titleIndex) +
                                 ", description = " + cursor.getString(descriptionIndex) +
                                 ", deadline = " + cursor.getString(deadlineIndex) +
-                                ", groupID = " + cursor.getInt(groupIDIndex) +
+                                ", goalID = " + cursor.getInt(goalIDIndex) +
                                 ", isOpen = " + cursor.getInt(isOpenIndex));
-                        Goal goal = new Goal(cursor.getInt(idIndex),
+                        Task task = new Task(cursor.getInt(idIndex),
                                 cursor.getString(titleIndex), cursor.getString(descriptionIndex),
-                                cursor.getString(deadlineIndex), cursor.getInt(groupIDIndex),
+                                cursor.getString(deadlineIndex), cursor.getInt(goalIDIndex),
                                 cursor.getInt(isOpenIndex));
-                        goals.add(goal);
+                        tasks.add(task);
                     }while (cursor.moveToNext());
                 } else
                     Log.d(TAG, "0 rows");
@@ -157,40 +153,39 @@ public class GroupActivity extends AppCompatActivity {
 
 
     public  void addItem(View view) {
-        Intent intent = new Intent(this, AddOrChangeGoalActivity.class);
-        intent.putExtra(Group.class.getSimpleName(), group);
-        intent.putExtra("mode", AddOrChangeGoalActivity.ADD_GOAL);
+        Intent intent = new Intent(this, AddOrChangeTaskActivity.class);
+        intent.putExtra(Goal.class.getSimpleName(), goal);
+        intent.putExtra("mode", AddOrChangeTaskActivity.ADD_TASK);
         startActivity(intent);
         finish();
     }
 
-    public  void removeGroup(View view) {
+    public  void removeGoal(View view) {
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-        ContentValues updatedGoalsValues = new ContentValues();
-        updatedGoalsValues.put(DBHelper.COLUMN_GROUP_ID, 1);
-        String where =  DBHelper.COLUMN_GROUP_ID + " = " + group.getID();
-        database.update(DBHelper.TABLE_GOALS, updatedGoalsValues, where, null);
+        String whereForGoals =  DBHelper.COLUMN_ID + " = " + goal.getID();
+        String whereForTasks =  DBHelper.COLUMN_GOAL_ID + " = " + goal.getID();
 
-        database.delete(DBHelper.TABLE_GROUPS, DBHelper.COLUMN_ID + " = " + group.getID(), null);
-        Intent intent = new Intent(this, GroupsActivity.class);
+        database.delete(DBHelper.TABLE_GOALS, whereForGoals, null);
+        database.delete(DBHelper.TABLE_TASKS, whereForTasks, null);
+
+        Intent intent = new Intent(this, GroupActivity.class);
         startActivity(intent);
         finish();
 
     }
 
-    public  void updateGroup(android.view.View view) {
-        Intent intent = new Intent(this, AddOrChangeGroupActivity.class);
-        intent.putExtra(Group.class.getSimpleName(), group);
-        intent.putExtra("mode", "Изменение группы");
+    public  void updateGoal(android.view.View view) {
+        Intent intent = new Intent(this, AddOrChangeGoalActivity.class);
+        intent.putExtra(Goal.class.getSimpleName(), goal);
+        intent.putExtra("mode", AddOrChangeGoalActivity.UPDATE_GOAL);
         startActivity(intent);
         finish();
     }
 
-    public void backToGroups(View view) {
-        Intent intent = new Intent(this, GroupsActivity.class);
+    public void backToGroup(View view) {
+        Intent intent = new Intent(this, GroupActivity.class);
         startActivity(intent);
         finish();
     }
-
 }

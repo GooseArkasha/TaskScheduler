@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TaskActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/task_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        style="@style/MyDescriptionStyle"/>
+
+    <TextView
+        android:id="@+id/deadlineTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        style="@style/MyDescriptionStyle"
+        android:padding="5dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/record_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="232dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="99dp"
+        app:layoutManager="LinearLayoutManager"
+        android:layout_weight="15"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/removeTaskButton"
+                style="@style/MyButtonTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:onClick="removeTask"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/updateTaskButton"
+                style="@style/MyButtonTextStyle"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:onClick="updateTask"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/addButton"
+                style="@style/MyButtonTextStyle"
+                android:layout_width="171dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_button"
+                android:onClick="addItem"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/backButton"
+                style="@style/MyButtonTextStyle"
+                android:layout_width="174dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:onClick="backToGoal"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

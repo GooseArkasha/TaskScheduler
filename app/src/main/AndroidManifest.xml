@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GoalActivity"></activity>
+        <activity android:name=".TaskActivity"></activity>
+        <activity android:name=".AddOrChangeTaskActivity" />
+        <activity android:name=".GoalActivity" />
         <activity
             android:name=".AddOrChangeGoalActivity"
             android:screenOrientation="portrait" />

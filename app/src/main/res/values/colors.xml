@@ -5,4 +5,6 @@
     <color name="colorAccent">#bcc9e6</color>
     <color name="colorAlarmBlue">#7383BF</color>
     <color name="colorDarkBlue">#3f508c</color>
+    <color name="DimGrey">#696969</color>
+
 </resources>

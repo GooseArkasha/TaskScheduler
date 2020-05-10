@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/description1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_or_change_task_description"
+        style="@style/MyDescriptionStyle"/>
+
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description1"
+        android:hint="@string/enter_task_title"
+        style="@style/MyTextStyle"/>
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:hint="@string/enter_task_description"
+        style="@style/MyTextStyle"/>
+
+    <TextView
+        android:id="@+id/GoalID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textColor = "#000000"
+        android:fontFamily = "sans-serif-condensed"
+        android:textSize="18sp"
+        android:layout_below="@+id/description"
+        android:text="ID цели"/>
+
+    <Switch
+        android:id="@+id/switchIsOpen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="Закрыть задачу"
+        android:layout_below="@+id/GoalID"
+        android:textColor = "#000000"
+        android:fontFamily = "sans-serif-condensed"
+        android:textSize="18sp"/>
+    <Button
+        android:id="@+id/addDeadlineButton"
+        style="@style/MyButtonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_button"
+        android:onClick="addDeadlineTask"
+        android:text="Добавить дедлайн"
+        android:layout_below="@+id/switchIsOpen"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"/>
+
+    <TextView
+        android:id="@+id/currentDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textColor = "#000000"
+        android:fontFamily = "sans-serif-condensed"
+        android:textSize="18sp"
+        android:layout_below="@+id/addDeadlineButton"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="20dp">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/MyButtonTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:onClick="saveTask"
+            android:text="@string/save" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:onClick="back"
+            android:text="@string/back"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            style="@style/MyButtonTextStyle"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</RelativeLayout>

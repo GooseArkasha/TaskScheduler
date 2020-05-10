@@ -6,9 +6,21 @@
     <string name="back">Назад</string>
     <string name="statistics">Статистика</string>
     <string name="closed">Закрытые</string>
-    <string name="add_goal">Добавить цель</string>
+
     <string name="remove_group">Удалить группу</string>
     <string name="update_group">Изменить группу</string>
+
+    <string name="add_goal">Добавить цель</string>
+    <string name="remove_goal">Удалить цель</string>
+    <string name="update_goal">Изменить цель</string>
+
+    <string name="add_task">Добавить задачу</string>
+    <string name="remove_task">Удалить задачу</string>
+    <string name="update_task">Изменить задачу</string>
+
+    <string name="add_record">Добавить запись</string>
+    <string name="remove_record">Удалить запись</string>
+    <string name="update_record">Изменить запись</string>
 
     <string name="groups_activity_description">В списке находятся доступные Вам группы.
         Вы можете посмотреть каждую группу подробнее, если кликните на нее.</string>
@@ -21,6 +33,13 @@
     <string name="add_or_change_goal_description">Тут вы можете создать Вашу новую цель,
         в которую потом можно добавить задачи.</string>
 
+    <string name="add_or_change_task_description">Тут вы можете создать Вашу новую задачу.</string>
+
     <string name="enter_goal_title">Введите название цели</string>
     <string name="enter_goal_description">Введите описание цели</string>
+
+    <string name="enter_task_title">Введите название задачи</string>
+    <string name="enter_task_description">Введите описание задачи</string>
+
+
 </resources>

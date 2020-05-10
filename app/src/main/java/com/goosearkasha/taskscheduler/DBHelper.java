@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import 	android.content.ContentValues;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "taskSchedulerDB";
     public static final String TABLE_GROUPS = "groups";
     public static final String TABLE_GOALS = "goals";
@@ -21,12 +21,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DEADLINE = "deadline";
     public static final String COLUMN_GROUP_ID = "group_id";
     public static final String COLUMN_IS_OPEN = "is_open";
-    public static final String COLUMN_DATE = "date";
     public static final String COLUMN_GOAL_ID = "goal_id";
     public static final String COLUMN_TIME = "time";
     public static final String COLUMN_COMMENT = "comment";
     public static final String COLUMN_TASK_ID = "task_id";
-    public static final String COLUMN_DAY_ID = "day_id";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -62,19 +60,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_IS_OPEN + " INTEGER default 1 " + //1 - открыта, 0 - закрыта
                 ");");
 
-        db.execSQL("CREATE TABLE " + TABLE_DAYS +
-                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_DATE + " TEXT " +
-                ");");
-
-        db.execSQL("CREATE TABLE " + TABLE_DAY_TASKS +
-                " (" + COLUMN_TASK_ID + " INTEGER, " +
-                COLUMN_DAY_ID + " INTEGER " +
-                ");");
 
         db.execSQL("CREATE TABLE " + TABLE_TAKE_TIME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_DAY_ID + " INTEGER, " +
                 COLUMN_TIME + " TEXT, " +
                 COLUMN_COMMENT + " TEXT default 'Тут может быть ваш комментарий', " +
                 COLUMN_TASK_ID + " INTEGER " +
