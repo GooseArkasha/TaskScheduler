@@ -97,8 +97,8 @@ public class TaskActivity extends AppCompatActivity {
 
                         Log.d(TAG, "size = " + takeTimeRecords.size());
 
-                        //TakeTimeRecordAdapter recordAdapter = new TakeTimeRecordAdapter(TaskActivity.this, takeTimeRecords);
-                        //recyclerView.setAdapter(recordAdapter);
+                        TakeTimeRecordAdapter recordAdapter = new TakeTimeRecordAdapter(TaskActivity.this, takeTimeRecords);
+                        recyclerView.setAdapter(recordAdapter);
                         break;
                 }
             }
@@ -116,41 +116,35 @@ public class TaskActivity extends AppCompatActivity {
             public void run() {
                 h.sendEmptyMessage(STATUS_START);
 
-//                SQLiteDatabase database = dbHelper.getWritableDatabase();
-//
-//                Log.d(TAG, "goalID = " + goal.getID());
-//                String selection = DBHelper.COLUMN_GOAL_ID + " = ?";
-//                String[] selectionArgs = {Integer.toString(goal.getID())};
-//                Cursor cursor = database.query(DBHelper.TABLE_TASKS, null, selection, selectionArgs, null, null, null);
-//                Log.d(TAG, "getCount = " + cursor.getCount());
-//
-//                if(cursor.moveToFirst()) {
-//                    int idIndex = cursor.getColumnIndex(DBHelper.COLUMN_ID);
-//                    int titleIndex = cursor.getColumnIndex(DBHelper.COLUMN_TITLE);
-//                    int descriptionIndex = cursor.getColumnIndex(DBHelper.COLUMN_DESCRIPTION);
-//                    int deadlineIndex = cursor.getColumnIndex(DBHelper.COLUMN_DEADLINE);
-//                    int goalIDIndex = cursor.getColumnIndex(DBHelper.COLUMN_GOAL_ID);
-//                    int isOpenIndex = cursor.getColumnIndex(DBHelper.COLUMN_IS_OPEN);
-//
-//                    do {
-//                        Log.d(TAG, "ID = " + cursor.getInt(idIndex) +
-//                                ", title = " + cursor.getString(titleIndex) +
-//                                ", description = " + cursor.getString(descriptionIndex) +
-//                                ", deadline = " + cursor.getString(deadlineIndex) +
-//                                ", goalID = " + cursor.getInt(goalIDIndex) +
-//                                ", isOpen = " + cursor.getInt(isOpenIndex));
-//                        Task task = new Task(cursor.getInt(idIndex),
-//                                cursor.getString(titleIndex), cursor.getString(descriptionIndex),
-//                                cursor.getString(deadlineIndex), cursor.getInt(goalIDIndex),
-//                                cursor.getInt(isOpenIndex));
-//                        tasks.add(task);
-//                    }while (cursor.moveToNext());
-//                } else
-//                    Log.d(TAG, "0 rows");
-//                Log.d(TAG, "QQ");
-//
-//                cursor.close();
-//                dbHelper.close();
+                SQLiteDatabase database = dbHelper.getWritableDatabase();
+
+                String selection = DBHelper.COLUMN_TASK_ID + " = ?";
+                String[] selectionArgs = {Integer.toString(task.getID())};
+                Cursor cursor = database.query(DBHelper.TABLE_TAKE_TIME, null, selection, selectionArgs, null, null, null);
+                Log.d(TAG, "getCount = " + cursor.getCount());
+
+                if(cursor.moveToFirst()) {
+                    int idIndex = cursor.getColumnIndex(DBHelper.COLUMN_ID);
+                    int commentIndex = cursor.getColumnIndex(DBHelper.COLUMN_COMMENT);
+                    int timeIndex = cursor.getColumnIndex(DBHelper.COLUMN_TIME);
+                    int taskIDIndex = cursor.getColumnIndex(DBHelper.COLUMN_TASK_ID);
+
+                    do {
+                        Log.d(TAG, "ID = " + cursor.getInt(idIndex) +
+                                ", comment = " + cursor.getString(commentIndex) +
+                                ", time = " + cursor.getString(timeIndex) +
+                                ", taskID = " + cursor.getString(taskIDIndex));
+                        TakeTimeRecord record = new TakeTimeRecord(cursor.getInt(idIndex),
+                                cursor.getString(commentIndex), cursor.getString(timeIndex),
+                                cursor.getInt(taskIDIndex));
+                        takeTimeRecords.add(record);
+                    }while (cursor.moveToNext());
+                } else
+                    Log.d(TAG, "0 rows");
+                Log.d(TAG, "QQ");
+
+                cursor.close();
+                dbHelper.close();
                 h.sendEmptyMessage(STATUS_FINISH);
             }
         });
@@ -159,11 +153,11 @@ public class TaskActivity extends AppCompatActivity {
 
 
     public  void addItem(View view) {
-//        Intent intent = new Intent(this, AddOrChangeTaskActivity.class);
-//        intent.putExtra(Goal.class.getSimpleName(), goal);
-//        intent.putExtra("mode", AddOrChangeTaskActivity.ADD_TASK);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, AddOrChangeRecord.class);
+        intent.putExtra(Task.class.getSimpleName(), task);
+        intent.putExtra("mode", AddOrChangeRecord.ADD_RECORD);
+        startActivity(intent);
+        finish();
     }
 
     public  void removeTask(View view) {

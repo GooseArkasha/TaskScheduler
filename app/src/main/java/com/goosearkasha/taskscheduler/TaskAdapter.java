@@ -41,7 +41,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         Task task = tasks.get(position);
         holder.taskTitle.setText(task.getTitle());
         if(!task.getIsOpen()) {
-            holder.taskTitle.setTextColor(context.getResources().getColor(R.color.DimGrey));
+            holder.taskTitle.setTextColor(context.getResources().getColor(R.color.Grey));
         }
     }
 

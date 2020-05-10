@@ -35,11 +35,15 @@
 
     <string name="add_or_change_task_description">Тут вы можете создать Вашу новую задачу.</string>
 
+    <string name="add_or_change_record_description">Тут вы можете создать запись о проделанной работе.</string>
+
     <string name="enter_goal_title">Введите название цели</string>
     <string name="enter_goal_description">Введите описание цели</string>
 
     <string name="enter_task_title">Введите название задачи</string>
     <string name="enter_task_description">Введите описание задачи</string>
+
+    <string name="enter_record_comment">Введите комментарий</string>
 
 
 </resources>

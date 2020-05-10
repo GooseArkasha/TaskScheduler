@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/description1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_or_change_record_description"
+        style="@style/MyDescriptionStyle"/>
+
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description1"
+        android:hint="@string/enter_record_comment"
+        style="@style/MyTextStyle"/>
+
+    <Button
+        android:id="@+id/addTimeButton"
+        style="@style/MyButtonTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@+id/comment"
+        android:background="@drawable/rounded_button"
+        android:onClick="setTime"
+        android:text="Добавить время"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="20dp">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/MyButtonTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:onClick="saveRecord"
+            android:text="@string/save" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:onClick="back"
+            android:text="@string/back"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            style="@style/MyButtonTextStyle"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</RelativeLayout>

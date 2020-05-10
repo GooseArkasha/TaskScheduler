@@ -77,7 +77,7 @@ public class AddOrChangeTaskActivity extends AppCompatActivity implements Compou
             if(mode == ADD_TASK) {
                 goal = (Goal) arguments.getSerializable(Goal.class.getSimpleName());
                 GoalIDTextView.setText("Ваша задача прикреплена к цели '" + goal.getTitle() + "'");
-                actionbar.setTitle("Добавление цели");
+                actionbar.setTitle("Добавление задачи");
 
             }
             if(mode == UPDATE_TASK){
@@ -93,7 +93,7 @@ public class AddOrChangeTaskActivity extends AppCompatActivity implements Compou
                     switchIsOpen.setChecked(true);
                 }
                 GoalIDTextView.setVisibility(View.GONE);
-                actionbar.setTitle("Изменение цели");
+                actionbar.setTitle("Изменение задачи");
             }
         }
 
