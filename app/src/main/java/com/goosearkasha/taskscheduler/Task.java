@@ -15,6 +15,8 @@ public class Task implements Serializable {
     private Calendar deadline;
     private int goalID;
     private boolean isOpen;
+    private Calendar takeTime;
+    private int minutes;
 
     public Task() {
         this.ID = 0;
@@ -23,6 +25,9 @@ public class Task implements Serializable {
         this.deadline = new GregorianCalendar(2000, Calendar.SEPTEMBER, 1);
         this.goalID = 0;
         this.isOpen = true;
+        this.takeTime = new GregorianCalendar(2000, Calendar.SEPTEMBER,
+                1, 0, 0);
+        this.minutes = 0;
     }
 
     public Task(int ID, String title, String description, String deadline, int goalID, int isOpen) {
@@ -30,6 +35,9 @@ public class Task implements Serializable {
         this.ID = ID;
         this.title = title;
         this.description = description;
+        this.takeTime = new GregorianCalendar(2000, Calendar.SEPTEMBER,
+                1, 0, 0);
+        this.minutes = 0;
         Log.d(TAG, deadline + " len = " + deadline.length());
 
         if(deadline.length() == 10) {
@@ -110,5 +118,21 @@ public class Task implements Serializable {
 
     public void setIsOpen(boolean open) {
         this.isOpen = open;
+    }
+
+    public Calendar getTakeTime() {
+        return takeTime;
+    }
+
+    public void setTakeTime(Calendar takeTime) {
+        this.takeTime = takeTime;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
     }
 }

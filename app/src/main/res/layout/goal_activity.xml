@@ -74,7 +74,7 @@
 
                 android:id="@+id/addButton"
                 style="@style/MyButtonTextStyle"
-                android:layout_width="171dp"
+                android:layout_width="144dp"
                 android:layout_height="35dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/rounded_button"
@@ -84,12 +84,24 @@
             <Button
                 android:id="@+id/backButton"
                 style="@style/MyButtonTextStyle"
-                android:layout_width="174dp"
+                android:layout_width="52dp"
                 android:layout_height="35dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_button"
                 android:onClick="backToGroup"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/statistics"
+                style="@style/MyButtonTextStyle"
+                android:layout_width="56dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:onClick="statistics"
+                android:text="Стат."
                 android:textColor="#FFFFFF" />
 
         </LinearLayout>

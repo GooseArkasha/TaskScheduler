@@ -9,10 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddOrChangeRecord"></activity>
-        <activity android:name=".TaskActivity" />
-        <activity android:name=".AddOrChangeTaskActivity" />
-        <activity android:name=".GoalActivity" />
+        <activity android:name=".StatisticsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".AddOrChangeRecord"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TaskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddOrChangeTaskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GoalActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddOrChangeGoalActivity"
             android:screenOrientation="portrait" />

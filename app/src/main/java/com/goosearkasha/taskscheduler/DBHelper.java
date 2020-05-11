@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import 	android.content.ContentValues;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "taskSchedulerDB";
     public static final String TABLE_GROUPS = "groups";
     public static final String TABLE_GOALS = "goals";
@@ -57,8 +57,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_DESCRIPTION + " TEXT default 'Тут может быть ваше описание', " +
                 COLUMN_DEADLINE + " TEXT, " +
                 COLUMN_GOAL_ID + " INTEGER, " +
-                COLUMN_IS_OPEN + " INTEGER default 1 " + //1 - открыта, 0 - закрыта
-                ");");
+                COLUMN_IS_OPEN + " INTEGER default 1, " + //1 - открыта, 0 - закрыта
+                COLUMN_TIME + " INTEGER default 0 " +");");
 
 
         db.execSQL("CREATE TABLE " + TABLE_TAKE_TIME +

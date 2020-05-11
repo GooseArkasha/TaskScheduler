@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class TaskActivity extends AppCompatActivity {
@@ -84,8 +87,6 @@ public class TaskActivity extends AppCompatActivity {
                         description.setText("Идет загрузка данных");
                         recyclerView.setVisibility(View.GONE);
                         Log.d(TAG, "status = " + STATUS_START);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                        deadlineTextView.setText("Дедлайн: " + dateFormat.format(task.getDeadline().getTime()));
                         break;
                     case STATUS_FINISH:
                         addButton.setEnabled(true);
@@ -117,6 +118,13 @@ public class TaskActivity extends AppCompatActivity {
                 h.sendEmptyMessage(STATUS_START);
 
                 SQLiteDatabase database = dbHelper.getWritableDatabase();
+                Calendar takeTime = new GregorianCalendar(2000, Calendar.SEPTEMBER,
+                        0, 0, 0);
+
+                int takeTimeMinutes = 0;
+                SimpleDateFormat minuteFormat = new SimpleDateFormat("m");
+                SimpleDateFormat hourFormat = new SimpleDateFormat("H");
+                SimpleDateFormat dayFormat = new SimpleDateFormat("d");
 
                 String selection = DBHelper.COLUMN_TASK_ID + " = ?";
                 String[] selectionArgs = {Integer.toString(task.getID())};
@@ -137,11 +145,45 @@ public class TaskActivity extends AppCompatActivity {
                         TakeTimeRecord record = new TakeTimeRecord(cursor.getInt(idIndex),
                                 cursor.getString(commentIndex), cursor.getString(timeIndex),
                                 cursor.getInt(taskIDIndex));
+
+                        //заполняем переменную с общим временем для задачи
+                        takeTime.add(Calendar.MINUTE, Integer.parseInt(minuteFormat.format(record.getTime().getTime())));
+                        Log.d(TAG, "minute = " + minuteFormat.format(takeTime.getTime()));
+                        takeTimeMinutes += Integer.parseInt(minuteFormat.format(record.getTime().getTime()));
+
+                        takeTime.add(Calendar.HOUR, Integer.parseInt(hourFormat.format(record.getTime().getTime())));
+                        takeTimeMinutes += Integer.parseInt(hourFormat.format(record.getTime().getTime())) * 60;
+                        Log.d(TAG, "hour = " + hourFormat.format(takeTime.getTime()));
+                        Log.d(TAG, "day = " + dayFormat.format(takeTime.getTime()));
+
                         takeTimeRecords.add(record);
                     }while (cursor.moveToNext());
                 } else
                     Log.d(TAG, "0 rows");
                 Log.d(TAG, "QQ");
+
+                task.setTakeTime(takeTime);
+                task.setMinutes(takeTimeMinutes);
+
+                //Обновление данных о времени
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues newValues = new ContentValues();
+                newValues.put(DBHelper.COLUMN_TIME, task.getMinutes());
+                String where =  DBHelper.COLUMN_ID + " = " + task.getID();
+                db.update(DBHelper.TABLE_TASKS, newValues, where, null);
+
+
+                Log.d(TAG, "min = " + takeTimeMinutes);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                SimpleDateFormat takeTimeFormat = new SimpleDateFormat("Д: dd; Ч: HH; М: mm");
+                SimpleDateFormat takeTimeHourAndMinuteFormat = new SimpleDateFormat("Ч: HH; М: mm");
+                SimpleDateFormat dayCheckFormat = new SimpleDateFormat("dd");
+
+                Log.d(TAG, dayCheckFormat.format(task.getTakeTime().getTime()));
+
+                deadlineTextView.setText("Дедлайн: " + dateFormat.format(task.getDeadline().getTime()) +
+                        "\nВы поработали над задачей: " +
+                        takeTimeHourAndMinuteFormat.format(task.getTakeTime().getTime()));
 
                 cursor.close();
                 dbHelper.close();

@@ -188,4 +188,11 @@ public class GoalActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void statistics(View view) {
+        Intent intent = new Intent(this, StatisticsActivity.class);
+        intent.putExtra(Goal.class.getSimpleName(), goal);
+        startActivity(intent);
+        finish();
+    }
 }

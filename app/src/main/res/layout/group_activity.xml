@@ -55,7 +55,7 @@
             <Button
                 android:id="@+id/updateGroupButton"
                 style="@style/MyButtonTextStyle"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -74,7 +74,7 @@
 
                 android:id="@+id/addButton"
                 style="@style/MyButtonTextStyle"
-                android:layout_width="171dp"
+                android:layout_width="146dp"
                 android:layout_height="35dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/rounded_button"
@@ -84,7 +84,7 @@
             <Button
                 android:id="@+id/backButton"
                 style="@style/MyButtonTextStyle"
-                android:layout_width="174dp"
+                android:layout_width="205dp"
                 android:layout_height="35dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
