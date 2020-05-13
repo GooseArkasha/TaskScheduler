@@ -35,6 +35,7 @@ public class AddOrChangeTaskActivity extends AppCompatActivity implements Compou
     Button backButton;
     EditText title;
     EditText description;
+    TextView description1;
     TextView GoalIDTextView;
     ActionBar actionbar;
     TextView currentDateTime;
@@ -57,6 +58,7 @@ public class AddOrChangeTaskActivity extends AppCompatActivity implements Compou
 
         currentDateTime = (TextView) findViewById(R.id.currentDateTime);
         description = (EditText) findViewById(R.id.description);
+        description1 = (TextView) findViewById(R.id.description1);
         title = (EditText) findViewById(R.id.title);
         GoalIDTextView = (TextView) findViewById(R.id.GoalID);
         saveButton = (Button) findViewById(R.id.saveButton);
@@ -78,12 +80,14 @@ public class AddOrChangeTaskActivity extends AppCompatActivity implements Compou
                 goal = (Goal) arguments.getSerializable(Goal.class.getSimpleName());
                 GoalIDTextView.setText("Ваша задача прикреплена к цели '" + goal.getTitle() + "'");
                 actionbar.setTitle("Добавление задачи");
+                description1.setText(R.string.add_or_change_task_description);
 
             }
             if(mode == UPDATE_TASK){
                 task = (Task) arguments.getSerializable(Task.class.getSimpleName());
                 title.setText(task.getTitle());
                 description.setText(task.getDescription());
+                description1.setText(R.string.change_task_description);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 deadline = dateFormat.format(task.getDeadline().getTime());
                 currentDateTime.setVisibility(View.GONE);

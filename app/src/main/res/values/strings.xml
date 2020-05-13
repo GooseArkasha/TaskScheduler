@@ -27,15 +27,19 @@
 
     <string name="add_or_change_group_description">Тут вы можете создать Вашу новую группу,
         в которую потом можно добавить цели.</string>
+    <string name="change_group_description">Тут вы можете изменить Вашу группу</string>
     <string name="enter_group_title">Введите название группы</string>
     <string name="enter_group_description">Введите описание группы</string>
 
     <string name="add_or_change_goal_description">Тут вы можете создать Вашу новую цель,
         в которую потом можно добавить задачи.</string>
+    <string name="change_goal_description">Тут вы можете изменить Вашу цель.</string>
 
     <string name="add_or_change_task_description">Тут вы можете создать Вашу новую задачу.</string>
+    <string name="change_task_description">Тут вы можете изменить Вашу задачу.</string>
 
     <string name="add_or_change_record_description">Тут вы можете создать запись о проделанной работе.</string>
+    <string name="change_record_description">Тут вы можете изменить запись о проделанной работе.</string>
 
     <string name="enter_goal_title">Введите название цели</string>
     <string name="enter_goal_description">Введите описание цели</string>

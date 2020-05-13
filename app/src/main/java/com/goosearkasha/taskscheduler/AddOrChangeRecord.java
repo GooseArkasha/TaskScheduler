@@ -38,6 +38,7 @@ public class AddOrChangeRecord extends AppCompatActivity {
     EditText comment;
     Button addTimeButton;
     ActionBar actionbar;
+    TextView description1;
 
     DBHelper dbHelper;
 
@@ -57,6 +58,7 @@ public class AddOrChangeRecord extends AppCompatActivity {
         addTimeButton = (Button) findViewById(R.id.addTimeButton);
         saveButton = (Button) findViewById(R.id.saveButton);
         backButton = (Button) findViewById(R.id.backButton);
+        description1 = (TextView) findViewById(R.id.description1);
 
         setInitialDateTime();
 
@@ -69,11 +71,13 @@ public class AddOrChangeRecord extends AppCompatActivity {
             if(mode == ADD_RECORD) {
                 task = (Task) arguments.getSerializable(Task.class.getSimpleName());
                 actionbar.setTitle("Добавление записи");
+                description1.setText(R.string.add_or_change_record_description);
 
             }
             if(mode == UPDATE_RECORD){
                 record = (TakeTimeRecord) arguments.getSerializable(TakeTimeRecord.class.getSimpleName());
                 comment.setText(record.getComment());
+                description1.setText(R.string.change_task_description);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
                 time = dateFormat.format(record.getTime().getTime());
                 Log.d(TAG, time);

@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.Button;
 import 	android.content.ContentValues;
 import android.util.Log;
+import android.widget.TextView;
 
 public class AddOrChangeGroupActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class AddOrChangeGroupActivity extends AppCompatActivity {
     Button backButton;
     EditText title;
     EditText description;
+    TextView description1;
     ActionBar actionbar;
 
     DBHelper dbHelper;
@@ -31,6 +33,7 @@ public class AddOrChangeGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_or_change_group);
         description = (EditText) findViewById(R.id.description);
+        description1 = (TextView) findViewById(R.id.description1);
         title = (EditText) findViewById(R.id.title);
         saveButton = (Button) findViewById(R.id.saveButton);
         backButton = (Button) findViewById(R.id.backButton);
@@ -44,6 +47,12 @@ public class AddOrChangeGroupActivity extends AppCompatActivity {
             mode = arguments.getString("mode");
             title.setText(group.getTitle());
             description.setText(group.getDescription());
+        }
+
+        if(mode == "Добавление группы") {
+            description1.setText(R.string.add_or_change_group_description);
+        } else {
+            description1.setText(R.string.change_group_description);
         }
 
         actionbar = getSupportActionBar();

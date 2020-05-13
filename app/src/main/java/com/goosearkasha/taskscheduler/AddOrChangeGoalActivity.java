@@ -29,6 +29,7 @@ public class AddOrChangeGoalActivity extends AppCompatActivity {
     EditText description;
     TextView GroupIDTextView;
     ActionBar actionbar;
+    TextView description1;
 
     DBHelper dbHelper;
 
@@ -45,6 +46,7 @@ public class AddOrChangeGoalActivity extends AppCompatActivity {
         GroupIDTextView = (TextView) findViewById(R.id.GroupID);
         saveButton = (Button) findViewById(R.id.saveButton);
         backButton = (Button) findViewById(R.id.backButton);
+        description1 = (TextView) findViewById(R.id.description1);
 
         Bundle arguments = getIntent().getExtras();
         actionbar = getSupportActionBar();
@@ -56,6 +58,7 @@ public class AddOrChangeGoalActivity extends AppCompatActivity {
                 group = (Group) arguments.getSerializable(Group.class.getSimpleName());
                 GroupIDTextView.setText("Ваша цель прикреплена к группе '" + group.getTitle() + "'");
                 actionbar.setTitle("Добавление цели");
+                description1.setText(R.string.add_or_change_goal_description);
 
             }
             if(mode == UPDATE_GOAL){
@@ -64,6 +67,7 @@ public class AddOrChangeGoalActivity extends AppCompatActivity {
                 description.setText(goal.getDescription());
                 GroupIDTextView.setVisibility(View.GONE);
                 actionbar.setTitle("Изменение цели");
+                description1.setText(R.string.change_goal_description);
             }
         }
 
